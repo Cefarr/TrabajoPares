@@ -71,9 +71,17 @@ public class AlquilerTest {
         sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 9843, item, 5);
         //prueba: 3 dias de retraso
         assertEquals("No se calcula correctamente la multa "
-                + "cuando la devolucion se realiza varios dias despues del limite."
+                + "cuando la devolucNumeroDiasInvalidoion se realiza varios dias despues del limite."
                 ,sa.valorMultaRetrasoxDia()*3,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-28")));
                 
+    }
+    //Srevicio Alquiler Prueba SAP  
+    // Si se registro 
+    
+    public void SAPItemRentado(){
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        ServiciosAlquilerItemsStub Servicio=ServiciosAlquilerItemsStub.getInstance();
+        Servicio.registrarAlquilerCliente(date, 0, item, 0);
     }
     
     
