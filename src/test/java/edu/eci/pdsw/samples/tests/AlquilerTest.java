@@ -75,14 +75,24 @@ public class AlquilerTest {
                 ,sa.valorMultaRetrasoxDia()*3,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-28")));
                 
     }
-    //Srevicio Alquiler Prueba SAP  
-    // Si se registro 
-    
-    public void SAPItemRentado(){
+    //Servicio Alquiler Prueba SAP  
+    // Si un item se rento  no debe aparecer disponible para ser rentado 
+
+    /**
+     *
+     * @throws ExcepcionServiciosAlquiler
+     */
+    @Test
+    public void SAPItemRentadoTest() throws ExcepcionServiciosAlquiler{
         ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
-        ServiciosAlquilerItemsStub Servicio=ServiciosAlquilerItemsStub.getInstance();
-        Servicio.registrarAlquilerCliente(date, 0, item, 0);
-    }
+        Item i1=new Item(sa.consultarTipoItem(1), 100, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
+        sa.registrarCliente(new Cliente("Juan Perez",9843,"24234","calle 123","aa@gmail.com"));
+        sa.registrarItem(i1);
+                
+        Item item=sa.consultarItem(100);
+        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 9843, item, 5);
+        assertEquals("Item no registrado:55",sa.consultarItem(100));
+    } 
     
     
     
