@@ -18,19 +18,7 @@ import static org.junit.Assert.*;
 
 /**
  * 
- * Calculo Multa:
- * 
- * Frontera:
- * CF1: Multas a devoluciones hechas en la fecha exacta (multa 0).
- * 
- * Clases de equivalencia:
- * CE1: Multas hechas a devolciones realizadas en fechas posteriores
- * a la limite. (multa multa_diaria*dias_retraso).
- * 
- * CE2: Multa para un cliente sin antecedentes de multas.(multa multa_diaria*dias_retraso)
- * 
- * CE3: MUlta para un cliente  con antecedentes de multa.(multa multa_diaria*dias_retraso) + 
- * +intereses de multas anteriores.
+
  * 
  * 
  */
