@@ -5,8 +5,15 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
+import edu.eci.pdsw.samples.entities.Cliente;
+import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.TipoItem;
+import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,8 +26,57 @@ import javax.faces.bean.SessionScoped;
 public class AlquilerItemsBean implements Serializable {
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
+    private List<Cliente> lisClien;
+    private List<Item> lisItem;
 
-    public AlquilerItemsBean() {
+    
+    
+    
+    public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
+
+        lisClien=new ArrayList<Cliente>();
+        lisItem=new ArrayList<Item>();
+        TipoItem tiT=new TipoItem(12, "Religiones del mundo");
+        Item it1= new Item(tiT, 123, "Las Religiones","Una Coleccion de todas las religiones del mundo", new Date(82,4,1,10,30,15), 2000, "DVD", "Documental") ;
+        Item it2= new Item(tiT, 321, "Las Historias mas locas de la historia","Una Coleccion de todas las historias mas bizarras al rededor del mundo", new Date(82,4,1,10,30,15), 2089, "DVD", "Documental") ;
+        Cliente c1= new Cliente("Juan Perez",3842,"24234","calle 123","aa@gmail.com");
+        Cliente c2= new Cliente("Juana Parez",31842,"214234","calle 13","aabcd@gmail.com");
+        sp.registrarItem(it1);
+        sp.registrarItem(it2);
+        sp.registrarCliente(c1);
+        sp.registrarCliente(c2);
+        //lisClien.add(c1);
+        //lisClien.add(c2);
+        //lisItem.add(it1);
+        //lisItem.add(it2);
+        for(int i=0; i<2;i++){
+            lisClien=sp.consultarClientes();
+            Cliente c= lisClien.get(i);
+            System.out.println("mirar cliente"+ c.getNombre());
+            
+        }
+        //Datos estaticos    
     }
-
+    
+    public List<Cliente> getClien() throws ExcepcionServiciosAlquiler{
+        System.out.println("mirar"+ sp.consultarCliente(3842));
+        for(int i=0; i<2;i++){
+            Cliente c= lisClien.get(i);
+            System.out.println("mirar cliente"+ c.getNombre());
+            
+        }
+        
+        return sp.consultarClientes();
+    }
+    
+    public List<Item> getItem(){
+        return sp.consultarItemsDisponibles();
+    
+    }
+    
+    
+    
+    
+    
+    
 }

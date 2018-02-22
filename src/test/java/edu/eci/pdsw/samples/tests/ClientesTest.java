@@ -57,7 +57,7 @@ public class ClientesTest {
         * 
      * 
     */
-    @Test
+    //@Test
     public void regClientesCE1()throws ExcepcionServiciosAlquiler{
         ArrayList<ItemRentado> rentados= new ArrayList<ItemRentado>();
         TipoItem tiT=new TipoItem(12, "Religiones del mundo");
