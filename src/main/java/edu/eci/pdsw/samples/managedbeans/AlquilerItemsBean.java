@@ -7,12 +7,15 @@ package edu.eci.pdsw.samples.managedbeans;
 
 import edu.eci.pdsw.samples.entities.Cliente;
 import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.entities.TipoItem;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -28,6 +31,8 @@ public class AlquilerItemsBean implements Serializable {
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
     private List<Cliente> lisClien;
     private List<Item> lisItem;
+    private long idTCliente;
+    private List<ItemRentado> itemsRetrasados;
 
     
     
@@ -57,6 +62,42 @@ public class AlquilerItemsBean implements Serializable {
         }
         //Datos estaticos    
     }
+    
+    public void setTargetCliente(long id){
+        idTCliente=id;
+    }
+    
+    public long  getTargetCliente(){
+        return idTCliente;
+    }
+    
+    public List<ItemRentado> ConsultaItemRetrasados(long client) throws ExcepcionServiciosAlquiler{
+        java.sql.Date now = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Iterator<ItemRentado> itemsCliente=sp.consultarItemsCliente(client).iterator();
+        itemsRetrasados=new ArrayList<ItemRentado>();
+        ItemRentado item;
+        while(itemsCliente.hasNext()){
+            item=itemsCliente.next();
+            if(item.getFechafinrenta().after(now)){
+                itemsRetrasados.add(item);
+            }
+        }
+        
+        return itemsRetrasados;
+    }
+    
+    public List<Long> getMultas() throws ExcepcionServiciosAlquiler{
+        Iterator<ItemRentado> items =itemsRetrasados.iterator();
+        java.sql.Date now = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        List<Long> multas=new ArrayList<Long>();
+        ItemRentado item;
+        while(items.hasNext()){
+            item = items.next();
+            multas.add(sp.consultarMultaAlquiler(item.getItem().getId(), now));
+        }
+        return multas;
+    }
+    
     
     public List<Cliente> getClien() throws ExcepcionServiciosAlquiler{
         System.out.println("mirar"+ sp.consultarCliente(3842));

@@ -13,6 +13,16 @@ and open the template in the editor.
         <title>Lista de clientes</title>
     </h:head>
     <h:body>
+        <p:dataTable var="cliente" value="#{AlquilerItemsBean.getTargetCliente}">
+           <p:column headerText="Items">
+               <h:outputText value="#{AlquilerItemsBean.ConsultaItemRetrasados(cliente)}" />
+           </p:column>
+
+           <p:column headerText="Dirrecion">
+               <h:outputText value="#{AlquilerItemsBean.getMultas()}" />
+           </p:column>
+
+       </p:dataTable>
    
     </h:body>
 
