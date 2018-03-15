@@ -3,4 +3,4 @@
 
 
 
-[![CircleCI](https://circleci.com/gh/Cefarr/workflows/TrabajoPares.svg?style=svg)](https://circleci.com/gh/Cefarr/workflows/TrabajoPares)
+[![CircleCI](https://circleci.com/gh/Cefarr/TrabajoPares.svg?style=svg)](https://circleci.com/gh/Cefarr/TrabajoPares)
